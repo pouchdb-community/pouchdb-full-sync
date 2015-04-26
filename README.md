@@ -88,7 +88,7 @@ db.fullyReplicateFrom(remoteDB);
 db.fullySync(remoteDB);
 ```
 
-The same promise/callback/event APIs are supported. So e.g. you can do a one-shot replication with promises:
+The same promise/callback/event APIs are supported. So for instance, you can do a one-shot replication with promises:
 
 
 ```js
