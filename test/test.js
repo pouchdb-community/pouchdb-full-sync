@@ -46,6 +46,13 @@ function tests(dbName1, dbName2) {
   beforeEach(function () {
     db = new PouchDB(dbName1);
     remote = new PouchDB(dbName2);
+    return Promise.all([
+      db.destroy(),
+      remote.destroy()
+    ]).then(function () {
+      db = new PouchDB(dbName1);
+      remote = new PouchDB(dbName2);
+    });
   });
 
   afterEach(function () {
@@ -280,6 +287,135 @@ function tests(dbName1, dbName2) {
         var docRevs = {
           foobar: revs
         };
+        return hasAllRevs(docRevs);
+      });
+    });
+
+    it('should replicate many docs w/ conflicts', function () {
+
+      var docs = [];
+      for (var i = 0; i < 10; i++) {
+        docs= docs.concat([
+          {
+            _id: (i + 1).toString(),
+            _deleted: true,
+            _rev: '3-a3',
+            _revisions: { start: 3, ids: [ 'a3', 'a2', 'a1' ] }
+          }, {
+            _id: (i + 1).toString(),
+            _rev: '2-a2',
+            _revisions: { start: 2, ids: [ 'a2', 'a1' ] }
+          }, {
+            _id: (i + 1).toString(),
+            _rev: '1-a1',
+            _revisions: { start: 1, ids: [ 'a1' ] }
+          }, {
+            _id: (i + 1).toString(),
+            _rev: '1-b1',
+            _revisions: { start: 1, ids: [ 'b1' ] }
+          }
+        ]);
+      }
+
+      return db.bulkDocs({
+        docs: docs,
+        new_edits: false
+      }).then(function () {
+        return db.fullyReplicateTo(remote);
+      }).then(function () {
+        var revs = docs.map(function (doc) {
+          return doc._rev;
+        });
+
+        var docRevs = {};
+        for (var i = 0; i < 10; i++) {
+          docRevs[(i + 1).toString()] = revs;
+        }
+        return hasAllRevs(docRevs);
+      });
+    });
+
+    it('test fullyReplicateFrom', function () {
+
+      return db.bulkDocs({
+        docs: [
+          {
+            _id: 'foobar',
+            _rev: '2-a2',
+            _revisions: { start: 2, ids: [ 'a2', 'a1' ] }
+          },
+          {
+            _id: 'foobar',
+            _rev: '1-a1',
+            _revisions: { start: 1, ids: [ 'a1' ] }
+          }
+        ],
+        new_edits: false
+      }).then(function () {
+        return remote.fullyReplicateFrom(db);
+      }).then(function () {
+        return db.info();
+      }).then(function (info) {
+        info.doc_count.should.equal(1);
+        return remote.info();
+      }).then(function (info) {
+        info.doc_count.should.equal(1);
+
+        var docRevs = {
+          foobar: ['2-a2', '1-a1']
+        };
+
+        return hasAllRevs(docRevs);
+      });
+    });
+
+    it('test fullySync', function () {
+
+      return db.bulkDocs({
+        docs: [
+          {
+            _id: 'foobar',
+            _rev: '2-a2',
+            _revisions: { start: 2, ids: [ 'a2', 'a1' ] }
+          },
+          {
+            _id: 'foobar',
+            _rev: '1-a1',
+            _revisions: { start: 1, ids: [ 'a1' ] }
+          }
+        ],
+        new_edits: false
+      }).then(function () {
+        return remote.bulkDocs({
+          docs: [
+            {
+              _id: 'foobaz',
+              _rev: '2-a2',
+              _revisions: {start: 2, ids: ['a2', 'a1']}
+            },
+            {
+              _id: 'foobaz',
+              _rev: '1-a1',
+              _revisions: {start: 1, ids: ['a1']}
+            }
+          ],
+          new_edits: false
+        });
+      }).then(function () {
+        return remote.fullySync(db);
+      }).then(function () {
+        return db.info();
+      }).then(function (info) {
+        info.doc_count.should.equal(2);
+        return remote.info();
+      }).then(function (info) {
+        info.doc_count.should.equal(2);
+
+        var docRevs = {
+          foobar: ['2-a2', '1-a1'],
+          foobaz: ['2-a2', '1-a1']
+        };
+
         return hasAllRevs(docRevs);
       });
     });
