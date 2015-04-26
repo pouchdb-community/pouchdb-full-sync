@@ -20,7 +20,7 @@ You can visualize it like this. Here's what CouchDB/PouchDB normally does:
 
 <img alt="Normal CouchDB replication" src="doc/chart1.png" width=450/>
 
-The non-leaf revisions `1-x`, `2-x`, and `3-x` are lost during replication, but the conflicting leafs `3-y` and `4-x` are kept. If you try to fetch the non-leafs from the target database using `db.get('id', {rev: '1-x'})`, then you'll see `{"error": "not_found", "reason": "missing"}`.
+The non-leaf revisions `1-x`, `2-x`, and `3-x` are lost during replication, but the conflicting leafs `3-y` and `4-x` are kept. If you try to fetch the non-leafs from the target database (e.g. using `db.get('id', {rev: '1-x'})`), then you'll see `{"error": "not_found", "reason": "missing"}`.
 
 Incidentally, this is the same thing that happens during [compaction](http://pouchdb.com/api.html#compaction).
 
