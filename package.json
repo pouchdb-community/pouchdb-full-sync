@@ -2,7 +2,7 @@
   "name": "pouchdb-plugin-seed",
   "version": "0.1.0",
   "description": "PouchDB Plugin Seed project",
-  "main": "index.js",
+  "main": "lib/index.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/pouchdb/plugin-seed.git"
@@ -21,9 +21,9 @@
     "url": "https://github.com/pouchdb/plugin-seed/issues"
   },
   "scripts": {
-    "test-node": "TEST_DB=testdb,http://localhost:5984/testdb istanbul test ./node_modules/mocha/bin/_mocha test/test.js",
+    "test-node": "istanbul test ./node_modules/mocha/bin/_mocha test/test.js",
     "test-browser": "./bin/test-browser.js",
-    "jshint": "jshint -c .jshintrc *.js test/test.js",
+    "jshint": "jshint -c .jshintrc lib test/test.js",
     "test": "npm run jshint && ./bin/run-test.sh",
     "build": "mkdirp dist && npm run browserify && npm run min",
     "browserify": "browserify index.js | ./bin/es3ify.js | derequire > dist/pouchdb.mypluginname.js",
@@ -33,9 +33,13 @@
     "coverage": "npm test --coverage && istanbul check-coverage --lines 100 --function 100 --statements 100 --branches 100"
   },
   "dependencies": {
-    "lie": "^2.6.0",
+    "argsarray": "0.0.1",
     "inherits": "~2.0.1",
-    "argsarray": "0.0.1"
+    "jshint": "^2.7.0",
+    "lie": "^2.6.0",
+    "pouchdb": "pouchdb/pouchdb",
+    "pouchdb-extend": "^0.1.2",
+    "spark-md5": "0.0.5"
   },
   "devDependencies": {
     "bluebird": "^1.0.7",
@@ -49,7 +53,6 @@
     "mkdirp": "^0.5.0",
     "mocha": "^1.18.2",
     "phantomjs": "^1.9.7-5",
-    "pouchdb": "pouchdb/pouchdb",
     "request": "^2.36.0",
     "sauce-connect-launcher": "^0.4.2",
     "selenium-standalone": "^3.0.2",
