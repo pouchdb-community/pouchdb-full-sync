@@ -34,6 +34,7 @@ dbPairs.forEach(function (pair) {
   });
 
   describe(pair[0] + '-' + pair[1], function () {
+    this.timeout(60000);
     tests(dbNames[0], dbNames[1]);
   });
 });
@@ -75,7 +76,7 @@ function tests(dbName1, dbName2) {
   }
 
 
-  describe('basic test suite', function () {
+  describe('main test suite', function () {
     this.timeout(60000);
 
     it('should replicate empty dbs', function () {

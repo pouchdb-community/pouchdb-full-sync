@@ -8,8 +8,8 @@ Fully replicate two PouchDB or CouchDB databases, while preserving absolutely al
 What you might use this for:
 
 * Implementing infinite undo/redo in your app
-* Building a VCS (like Git) on top of CouchDB/PouchDB
-* Building a wiki on top of CouchDB/PouchdB, where all edits ever are preserved
+* Building a Git-like VCS on top of CouchDB/PouchDB
+* Building a wiki on top of CouchDB/PouchDB, where all edits ever are preserved
 
 Description
 ----
@@ -24,7 +24,7 @@ The non-leaf revisions `1-x`, `2-x`, and `3-x` are lost during replication, but 
 
 Incidentally, this is the same thing that happens during [compaction](http://pouchdb.com/api.html#compaction).
 
-Now, here's what `pouchdb-full-sync` does:
+Now, here's what PouchDB Full Sync does:
 
 <img alt="Normal CouchDB replication" src="doc/chart2.png" width=450/>
 
