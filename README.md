@@ -7,7 +7,7 @@ Fully replicate two PouchDB or CouchDB databases, while preserving absolutely al
 
 What you might use this for:
 
-* Infinite undo/redo in your app
+* Implementing infinite undo/redo in your app
 * Building a VCS (like Git) on top of CouchDB/PouchDB
 * Building a wiki on top of CouchDB/PouchdB, where all edits ever are preserved
 
