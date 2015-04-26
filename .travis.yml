@@ -29,6 +29,11 @@ env:
   - CLIENT=selenium:phantomjs COMMAND=test
   - COMMAND=coverage
 
+matrix:
+  allow_failures:
+  - env: COMMAND=coverage
+  fast_finish: true
+
 branches:
   only:
   - master
