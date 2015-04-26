@@ -1,4 +1,4 @@
-PouchDB Plugin Seed
+PouchDB Full Sync
 =====
 
 [![Build Status](https://travis-ci.org/nolanlawson/pouchdb-full-sync.svg)](https://travis-ci.org/nolanlawson/pouchdb-full-sync)

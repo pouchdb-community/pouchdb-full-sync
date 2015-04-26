@@ -1,24 +1,24 @@
 {
-  "name": "pouchdb-plugin-seed",
-  "version": "0.1.0",
-  "description": "PouchDB Plugin Seed project",
+  "name": "pouchdb-full-sync",
+  "version": "1.0.0",
+  "description": "PouchDB Full Sync - completely replicate databases, preserving all history",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/pouchdb/plugin-seed.git"
+    "url": "git://github.com/nolanlawson/pouchdb-full-sync.git"
   },
   "keywords": [
     "pouch",
     "pouchdb",
-    "plugin",
-    "seed",
+    "full",
+    "sync",
     "couch",
     "couchdb"
   ],
   "author": "",
   "license": "Apache",
   "bugs": {
-    "url": "https://github.com/pouchdb/plugin-seed/issues"
+    "url": "https://github.com/nolanlawson/pouchdb-full-sync/issues"
   },
   "scripts": {
     "test-node": "istanbul test ./node_modules/mocha/bin/_mocha test/test.js",
