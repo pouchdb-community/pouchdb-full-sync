@@ -45,6 +45,7 @@ function tests(dbName1, dbName2) {
   var remote;
 
   beforeEach(function () {
+    this.timeout(60000);
     db = new PouchDB(dbName1);
     remote = new PouchDB(dbName2);
     return Promise.all([
@@ -57,6 +58,7 @@ function tests(dbName1, dbName2) {
   });
 
   afterEach(function () {
+    this.timeout(60000);
     return Promise.all([
       db.destroy(),
       remote.destroy()
