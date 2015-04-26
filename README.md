@@ -5,11 +5,11 @@ PouchDB Full Sync
 
 Fully replicate two PouchDB or CouchDB databases, while preserving absolutely all document history and conflicts.
 
-What you might use this for:
+Useful for:
 
 * Implementing infinite undo/redo in your app
 * Building a Git-like VCS on top of CouchDB/PouchDB
-* Building a wiki on top of CouchDB/PouchDB, where all edits ever are preserved
+* Building a collaborative wiki, where all edits ever are preserved
 
 Description
 ----
@@ -29,19 +29,6 @@ Now, here's what PouchDB Full Sync does:
 <img alt="Normal CouchDB replication" src="doc/chart2.png" width=450/>
 
 Notice that all the revisions are kept, even the non-leafs. So you can call `db.get('id', {rev: '1-x'})` and the data will be there!
-
-Caveats
----
-
-If you want to permanently preserve history, you should never call `compact()` or enable `auto_compaction`. Once you compact, the non-leaf revisions in that database are lost.
-
-Also, your database can grow wildly out of control, because CouchDB/PouchDB is storing your full document history. Be cognizant of [browser data limits](http://pouchdb.com/faq.html#data_limits).
-
-Also, be forewarned that CouchDB 2.0 will deprecate the `_compact` API, meaning that it will compact whenever it deems necessary. So at that point, you may need to stick with CouchDB 1.x or PouchDB Server.
-
-This plugin also supports replicating between two CouchDBs (since PouchDB itself can do that), but note that the changes will flow through PouchDB, rather than using the CouchDB replicator at the `/_replicate` endpoint.
-
-PouchDB currently has a hard limit of 1,000 revisions ([unless you help fix it :smile:](https://github.com/pouchdb/pouchdb/issues/2839)), at which point it will cut off the revision history. CouchDB has a [`_revs_limit` API](https://wiki.apache.org/couchdb/HTTP_database_API#Accessing_Database-specific_options) which you can use to configure the limit.
 
 Usage
 ----
@@ -132,6 +119,21 @@ db.fullySync(remoteDB, {
   // handle error
 });
 ```
+
+Caveats
+---
+
+If you want to permanently preserve history, you should never call `compact()` or enable `auto_compaction`. Once you compact, the non-leaf revisions in that database are lost.
+
+Also, your database can grow wildly out of control, because CouchDB/PouchDB is storing your full document history. Be cognizant of [browser data limits](http://pouchdb.com/faq.html#data_limits).
+
+Also, be forewarned that CouchDB 2.0 will deprecate the `_compact` API, meaning that it will compact whenever it deems necessary. So at that point, you may need to stick with CouchDB 1.x or PouchDB Server.
+
+This plugin also supports replicating between two CouchDBs (since PouchDB itself can do that), but note that the changes will flow through PouchDB, rather than using the CouchDB replicator at the `/_replicate` endpoint.
+
+PouchDB currently has a hard limit of 1,000 revisions ([unless you help fix it :smile:](https://github.com/pouchdb/pouchdb/issues/2839)), at which point it will cut off the revision history. CouchDB has a [`_revs_limit` API](https://wiki.apache.org/couchdb/HTTP_database_API#Accessing_Database-specific_options) which you can use to configure the limit.
+
+This algorithm is also less efficient than PouchDB's original replication algorithm, because it involves more `GET` requests to fetch the parent revisions. When the [bulk revs API](https://issues.apache.org/jira/browse/COUCHDB-2310) is finished, it can be improved.
 
 Building
 ----
