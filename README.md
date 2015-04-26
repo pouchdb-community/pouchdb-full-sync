@@ -26,7 +26,7 @@ Incidentally, this is the same thing that happens during [compaction](http://pou
 
 Now, here's what PouchDB Full Sync does:
 
-<img alt="Normal CouchDB replication" src="doc/chart2.png" width=450/>
+<img alt="PouchDB Full Sync replication" src="doc/chart2.png" width=450/>
 
 Notice that all the revisions are kept, even the non-leafs. So you can call `db.get('id', {rev: '1-x'})` and the data will be there!
 
