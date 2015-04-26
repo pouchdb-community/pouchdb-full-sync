@@ -15,7 +15,7 @@
     "couch",
     "couchdb"
   ],
-  "author": "",
+  "author": "Nolan Lawson <nolan.lawson@gmail.com>",
   "license": "Apache",
   "bugs": {
     "url": "https://github.com/nolanlawson/pouchdb-full-sync/issues"
