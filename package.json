@@ -26,8 +26,8 @@
     "jshint": "jshint -c .jshintrc lib test/test.js",
     "test": "npm run jshint && ./bin/run-test.sh",
     "build": "mkdirp dist && npm run browserify && npm run min",
-    "browserify": "browserify index.js | ./bin/es3ify.js | derequire > dist/pouchdb.mypluginname.js",
-    "min": "uglifyjs dist/pouchdb.mypluginname.js -mc > dist/pouchdb.mypluginname.min.js",
+    "browserify": "browserify . | ./bin/es3ify.js | derequire > dist/pouchdb.full-sync.js",
+    "min": "uglifyjs dist/pouchdb.full-sync.js -mc > dist/pouchdb.full-sync.min.js",
     "dev": "browserify test/test.js > test/test-bundle.js && npm run dev-server",
     "dev-server": "./bin/dev-server.js",
     "coverage": "npm test --coverage && istanbul check-coverage --lines 100 --function 100 --statements 100 --branches 100"
