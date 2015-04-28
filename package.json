@@ -35,7 +35,6 @@
   "dependencies": {
     "argsarray": "0.0.1",
     "inherits": "~2.0.1",
-    "jshint": "^2.7.0",
     "lie": "^2.6.0",
     "pouchdb": "pouchdb/pouchdb",
     "pouchdb-extend": "^0.1.2",
