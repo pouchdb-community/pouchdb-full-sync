@@ -42,11 +42,12 @@ To use this plugin in the browser, include it after `pouchdb.js` in your HTML pa
 <script src="pouchdb.full-sync.js"></script>
 ```
 
-It's also available from Bower:
+Prebuilt files can be downloaded from npmcdn:
+ 
+* [pouchdb.full-sync.js](https://npmcdn.com/pouchdb-full-sync/dist/pouchdb.full-sync.js)
+* [pouchdb.full-sync.min.js](https://npmcdn.com/pouchdb-full-sync/dist/pouchdb.full-sync.min.js)
 
-    bower install pouchdb-full-sync
-
-### In Node.js/Browserify
+### In Node.js/Browserify/Webpack
 
 Or to use it in Node.js, just npm install it:
 

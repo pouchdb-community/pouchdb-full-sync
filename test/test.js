@@ -1,7 +1,7 @@
 /*jshint expr:true */
 'use strict';
 
-var PouchDB = require('pouchdb');
+var PouchDB = require('pouchdb-memory');
 
 //
 // your plugin goes here

@@ -19,7 +19,7 @@ var w = watchify(browserify(indexfile, {
   packageCache: {},
   fullPaths: true,
   debug: true
-}));
+}).transform('rollupify'));
 
 w.on('update', bundle);
 bundle();
