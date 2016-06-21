@@ -6,7 +6,7 @@ var PouchDB = require('pouchdb-memory');
 //
 // your plugin goes here
 //
-var thePlugin = require('../');
+var thePlugin = require('..');
 PouchDB.plugin(thePlugin);
 
 var chai = require('chai');
