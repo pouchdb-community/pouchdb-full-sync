@@ -27,7 +27,7 @@
     "jshint": "jshint -c .jshintrc lib test/test.js",
     "test": "npm run jshint && ./bin/run-test.sh",
     "build": "mkdirp dist && mkdirp lib && run-scripts browserify min",
-    "browserify": "browserify src -g es3ify | derequire > dist/pouchdb.full-sync.js",
+    "browserify": "browserify . -g es3ify | derequire > dist/pouchdb.full-sync.js",
     "min": "uglifyjs dist/pouchdb.full-sync.js -mc > dist/pouchdb.full-sync.min.js",
     "dev": "browserify test/test.js > test/test-bundle.js && npm run dev-server",
     "dev-server": "./bin/dev-server.js",
