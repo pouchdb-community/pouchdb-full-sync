@@ -1,7 +1,8 @@
 /*jshint expr:true */
 'use strict';
 
-var PouchDB = require('pouchdb');
+var PouchDB = require('pouchdb-memory')
+  .plugin(require('pouchdb-adapter-http'));
 
 //
 // your plugin goes here
@@ -34,7 +35,7 @@ dbPairs.forEach(function (pair) {
   });
 
   describe(pair[0] + '-' + pair[1], function () {
-    this.timeout(60000);
+    this.timeout(120000);
     tests(dbNames[0], dbNames[1]);
   });
 });
@@ -45,7 +46,7 @@ function tests(dbName1, dbName2) {
   var remote;
 
   beforeEach(function () {
-    this.timeout(60000);
+    this.timeout(120000);
     db = new PouchDB(dbName1);
     remote = new PouchDB(dbName2);
     return Promise.all([
@@ -58,7 +59,7 @@ function tests(dbName1, dbName2) {
   });
 
   afterEach(function () {
-    this.timeout(60000);
+    this.timeout(120000);
     return Promise.all([
       db.destroy(),
       remote.destroy()
@@ -66,20 +67,28 @@ function tests(dbName1, dbName2) {
   });
 
   function hasAllRevs(docRevs) {
-    var promises = [];
+    var promise = Promise.resolve();
+    var results = [];
+    // avoid Promise.all() because it causes ECONNRESET
     Object.keys(docRevs).forEach(function (doc) {
       docRevs[doc].forEach(function (rev) {
         [db, remote].forEach(function (pouch) {
-          promises.push(pouch.get(doc, {rev: rev}));
+          promise = promise.then(function () {
+            return pouch.get(doc, {rev: rev});
+          }).then(function (res) {
+            results.push(res);
+          });
         });
       });
     });
-    return Promise.all(promises);
+    return promise.then(function () {
+      return results;
+    });
   }
 
 
   describe('main test suite', function () {
-    this.timeout(60000);
+    this.timeout(120000);
 
     it('should replicate empty dbs', function () {
       return db.fullyReplicateTo(remote).then(function () {

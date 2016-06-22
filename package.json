@@ -33,15 +33,15 @@
     "coverage": "npm test --coverage && istanbul check-coverage --lines 100 --function 100 --statements 100 --branches 100"
   },
   "dependencies": {
-    "argsarray": "0.0.1",
     "inherits": "~2.0.1",
-    "lie": "^2.6.0",
-    "pouchdb": "^5.2.1",
+    "pouchdb-checkpointer": "5.4.4",
+    "pouchdb-generate-replication-id": "5.4.4",
+    "pouchdb-promise": "5.4.4",
     "pouchdb-extend": "^0.1.2",
     "spark-md5": "0.0.5"
   },
   "devDependencies": {
-    "bluebird": "^1.0.7",
+    "bluebird": "^3.4.1",
     "browserify": "^9.0.8",
     "chai": "^1.9.1",
     "derequire": "^2.0.0",
@@ -51,7 +51,9 @@
     "jshint": "2.8.0",
     "mkdirp": "^0.5.0",
     "mocha": "^1.18.2",
-    "phantomjs": "^1.9.7-5",
+    "phantomjs-prebuilt": "^2.1.7",
+    "pouchdb-adapter-http": "^5.4.4",
+    "pouchdb-memory": "^1.0.0",
     "request": "^2.36.0",
     "sauce-connect-launcher": "^0.4.2",
     "selenium-standalone": "^3.0.2",
@@ -62,5 +64,8 @@
   "browser": {
     "crypto": false
   },
-  "files": ["dist", "lib"]
+  "files": [
+    "dist",
+    "lib"
+  ]
 }
