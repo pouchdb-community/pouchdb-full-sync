@@ -4931,14 +4931,17 @@ function fullySync(dbName, opts, callback) {
   return sync(this, dbName, opts, callback);
 }
 
-module.exports = {
+var plugin = {
   fullyReplicateFrom: fullyReplicateFrom,
   fullyReplicateTo: fullyReplicateTo,
   fullySync: fullySync
 };
 
+module.exports = plugin;
+
 /* istanbul ignore next */
 if (typeof window !== 'undefined' && window.PouchDB) {
-  window.PouchDB.plugin(exports);
+  window.PouchDB.plugin(plugin);
 }
+
 },{"./fully-replicate":1,"./sync":3}]},{},[23]);
