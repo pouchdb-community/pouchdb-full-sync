@@ -4917,17 +4917,23 @@ var fullyReplicate = _dereq_('./fully-replicate');
 var sync = _dereq_('./sync');
 
 function fullyReplicateFrom(url, opts, callback) {
-  /*jshint validthis:true */
+  /* jshint validthis:true */
+  opts = opts || {};
+  opts.PouchConstructor = this.constructor;
   return fullyReplicate.replicate(url, this, opts, callback);
 }
 
 function fullyReplicateTo(url, opts, callback) {
-  /*jshint validthis:true */
+  /* jshint validthis:true */
+  opts = opts || {};
+  opts.PouchConstructor = this.constructor;
   return fullyReplicate.replicate(this, url, opts, callback);
 }
 
 function fullySync(dbName, opts, callback) {
-  /*jshint validthis:true */
+  /* jshint validthis:true */
+  opts = opts || {};
+  opts.PouchConstructor = this.constructor;
   return sync(this, dbName, opts, callback);
 }
 

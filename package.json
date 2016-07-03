@@ -1,6 +1,6 @@
 {
   "name": "pouchdb-full-sync",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "PouchDB Full Sync - completely replicate databases, preserving all history",
   "main": "lib/index.js",
   "repository": {
