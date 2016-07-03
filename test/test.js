@@ -101,6 +101,39 @@ function tests(dbName1, dbName2) {
       });
     });
 
+    it('should replicate to a string', function () {
+      return db.fullyReplicateTo(dbName2).then(function () {
+        return db.info();
+      }).then(function (info) {
+        info.doc_count.should.equal(0);
+        return remote.info();
+      }).then(function (info) {
+        info.doc_count.should.equal(0);
+      });
+    });
+
+    it('should replicate from a string', function () {
+      return db.fullyReplicateFrom(dbName2).then(function () {
+        return db.info();
+      }).then(function (info) {
+        info.doc_count.should.equal(0);
+        return remote.info();
+      }).then(function (info) {
+        info.doc_count.should.equal(0);
+      });
+    });
+
+    it('should sync to a string', function () {
+      return db.sync(dbName2).then(function () {
+        return db.info();
+      }).then(function (info) {
+        info.doc_count.should.equal(0);
+        return remote.info();
+      }).then(function (info) {
+        info.doc_count.should.equal(0);
+      });
+    });
+
     it('should replicate non-leafs', function () {
 
       return db.bulkDocs({
